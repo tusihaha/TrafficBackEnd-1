@@ -5,91 +5,72 @@
 @endsection
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            {{--         <h1>
-                         Dashboard
-                         <small>Version 2.0</small>
-                     </h1>--}}
-            <div>
-                <ol class="breadcrumb">
-                    <li><a href="{{route('homepage')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Dashboard</li>
-                </ol>
-            </div>
-
         </section>
-        <!-- Main content -->
         <section class="content">
-            <!-- Info boxes -->
-            <div class="row">
-                <div class="container">
-                    <div class="form-group col-md-3">
-                        <label for="time"><span class="glyphicon glyphicon-edit"></span> Chọn thời điểm :</label>
-                        <select class="form-control" id="time_option" onchange="showSelectedInput()">
-                            <option value="now">Hiện tại</option>
-                            <option value="minute">Nửa giờ trước</option>
-                            <option value="day">Hôm qua</option>
-                            <option value="week">Tuần trước</option>
-                            <option value="manual">Thời điểm khác</option>
-                        </select>
-
-                        <!-- Make by Toan -->
-                        <br>
-                        <label for="indicator"><span class="glyphicon glyphicon-edit"></span> Chọn thuật toán :</label>
-                        <select class="form-control" id="indicator_option">
-                            <option value="1">Nhóm 1</option>
-                            <option value="2">Nhóm 2</option>
-                            <option value="3">Nhóm 3</option>
-                            <option value="4">Nhóm 4</option>
-                            <option value="5">Nhóm 5</option>
-                        </select>
-                        <!-- Make by Toan -->
-
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="date_input"><span class="glyphicon glyphicon-lock"></span> Ngày :
-                        </label>
-                        <input class="form-control" id="date_input" type="date">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="start_input"><span class="glyphicon glyphicon-lock"></span> Giờ :
-                        </label>
-                        <input class="form-control" id="start_input" type="time">
-                    </div>
-                    <a class="btn btn-info" id="button_submit" style="margin-top: 25px"><span
-                                class="glyphicon glyphicon-search"></span>Xem lịch sử</a>
-                </div>
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="row" style="">
-                        <div class="col-md-1">
-                            Chú giải
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="time"><span class="glyphicon glyphicon-edit"></span> Chọn thời điểm :</label>
+                            <select class="form-control" id="time_option" onchange="showSelectedInput()">
+                                <option value="now">Hiện tại</option>
+                                <option value="minute">Nửa giờ trước</option>
+                                <option value="day">Hôm qua</option>
+                                <option value="week">Tuần trước</option>
+                                <option value="manual">Thời điểm khác</option>
+                            </select>
                         </div>
-                        <div class="btn btn-default">
-                            Chưa có dữ liệu
+                        <div class="col-md-3">
+                            <label for="date_input"><span class="glyphicon glyphicon-lock"></span> Ngày :
+                            </label>
+                            <input class="form-control" id="date_input" type="date">
                         </div>
-                        <div class="btn btn-danger">
-                            0-10 km/h
+                        <div class="col-md-3">
+                            <label for="start_input"><span class="glyphicon glyphicon-lock"></span> Giờ :
+                            </label>
+                            <input class="form-control" id="time_input" type="time">
                         </div>
-                        <div class="btn btn-warning">
-                            10-20 km/h
+                        <div class="col-md-3">
+                            <label for="indicator"><span class="glyphicon glyphicon-edit"></span> Chọn thuật toán :</label>
+                            <select class="form-control" id="indicator_option">
+                                <option value="1">Nhóm 1</option>
+                                <option value="2">Nhóm 2</option>
+                                <option value="3">Nhóm 3</option>
+                                <option value="4">Nhóm 4</option>
+                                <option value="5">Nhóm 5</option>
+                            </select>
                         </div>
-                        <div class="btn btn-success">
-                            20-30 km/h
-                        </div>
-                        <div class="btn btn-primary">
-                            >30 km/h
-                        </div>
-                    </div>
-                    <div class="row" id="map" style="min-height: 500px;">
-
                     </div>
                 </div>
-                <!-- /.col -->
-                <!-- fix for small devices only -->
-                <div class="clearfix visible-sm-block"></div>
+                <div class="col-md-2">
+                    <a class="btn btn-info" id="button_submit" style="margin-top: 25px">
+                        <span class="glyphicon glyphicon-search"></span>Xem lịch sử
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <div class="row" style="padding-bottom: 5px; padding-left: 20px">
+                        <strong>Chú giải</strong>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button class="btn btn-primary"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> 30km/h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-success"> 20 đến 30km/h </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-warning"> 10 đến 20km/h </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-danger"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;< 10km/h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               
+            <div class="row" id="map">
+
             </div>
         </section>
         <!-- /.content -->
@@ -102,15 +83,11 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script>
-        // Make by Toan
         var rectangle;
         var map;
-        // Make by Toan
 
         function initMap()
         {
-            // define  variables
-            // Make by Toan
             var width = {{$grid->width}};
             var height = {{$grid->height}};
             var north = {{$grid->north}};
@@ -119,23 +96,12 @@
             var west = {{$grid->west}};
             var la = (north + south) / 2;
             var lo = (west + east) / 2;
-            // Make by Toan
 
-            // Comment by Toan
-            // var width = 56;
-            // var height = 23;
-            // var north = 21.157200;
-            // var east = 105.919876;
-            // var south = 20.951180;
-            // var west = 105.456390;
-            // Comment by Toan
-
-            // define map
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 12,
                 center: {lat: la, lng: lo}
             });
-            //define rectangles
+            
             rectangle = new Array(height);
             for (var i = 0; i < height; i++) {
                 rectangle[ i ] = new Array(width);
@@ -145,9 +111,7 @@
                         strokeOpacity: 0.8,
                         strokeWeight: 2,
                         fillOpacity: 0.35,
-                        // Make by Toan
                         fillColor: '#808080',
-                        // Make by Toan
                         map: map,
                         bounds: {
                             north: (south + (i + 1) * (north - south) / height),
@@ -156,8 +120,6 @@
                             east: (west + (j + 1) * (east - west) / width),
                         }
                     });
-
-                    // Make by Toan
                     var userZoom = true;
                     google.maps.event.addListener(map, 'zoom_changed', function() {
                         if(userZoom){
@@ -168,14 +130,12 @@
                     google.maps.event.addListener(map, 'idle', function(){
                         if(!userZoom) userZoom = true;
                     })
-                    // Make by Toan
                 }
             }
             $(document).ready(function ()
             {
                 $('#button_submit').click(function ()
                 {
-                    // Make by Toan
                     for(var i = 0; i < rectangle.length; i++){
                         for(var j = 0; j < rectangle[0].length; j++){
                             rectangle[i][j].setOptions({
@@ -183,11 +143,9 @@
                             });
                         }
                     }
-                    // Make by Toan
                     resetAllColor(map.zoom);
                 });
             });
-            // get color from server
             updateRectangle(map.zoom);
         }
         function updateRectangle(zoom)
@@ -196,7 +154,6 @@
             {
                 var xml = data.responseXML;
                 var markers = xml.documentElement.getElementsByTagName('marker');
-                //Loop for each rows in table
                 Array.prototype.forEach.call(markers, function (markerElem)
                 {
                     var whereX = markerElem.getAttribute('whereX');
@@ -229,7 +186,6 @@
             {
                 var xml = data.responseXML;
                 var markers = xml.documentElement.getElementsByTagName('marker');
-                //Loop for each rows in table
                 Array.prototype.forEach.call(markers, function (markerElem)
                 {
                     var whereX = markerElem.getAttribute('whereX');
@@ -248,7 +204,6 @@
                 });
             });
         }
-        //        get data from XML page
         function downloadUrl(url, callback)
         {
             var request = window.ActiveXObject ?
@@ -266,7 +221,6 @@
             request.open('GET', url, true);
             request.send(null);
         }
-        // Callback function
         function doNothing()
         {
         }
@@ -286,8 +240,6 @@
             $('#start_input').val(now.format('HH:mm'));
             return now.format('YYYY-MM-DD HH:mm:00')
         }
-
-        // Function make by Toan
         function updateMap(){
             if(map.zoom < 11){
                 map.zoom++;
@@ -347,6 +299,5 @@
                 })
             })
         }
-        // Function make by Toan
     </script>
 @endsection

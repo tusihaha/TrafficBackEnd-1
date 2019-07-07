@@ -11,26 +11,13 @@
             position: absolute;
             left: 10%;
             top: -5%;
-            width: 100%;
+            width: 80%;
             transition: .75s ease;
             z-index: 1;
         }
 
     </style>
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            {{--         <h1>
-                         Dashboard
-                         <small>Version 2.0</small>
-                     </h1>--}}
-            <div>
-                <ol class="breadcrumb">
-                    <li><a href="{{route('homepage')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Dashboard</li>
-                </ol>
-            </div>
-
         </section>
         <!-- Modal -->
         <div class="modal fade" id="inputModal" role="dialog">
@@ -137,70 +124,51 @@
         </div>
 
         <!-- Main content -->
-        <section class="content">
-            <!-- Info boxes -->
+        <section class="content">   
             <div class="row">
-                <!-- Make by Toan -->   
-                <div class="container">
-                    <div class="form-group col-md-3">
-                        <label for="indicator"><span class="glyphicon glyphicon-edit"></span> Chọn thuật toán :</label>
-                        <select class="form-control" id="indicator_option">
-                            <option value="1">Nhóm 1</option>
-                            <option value="2">Nhóm 2</option>
-                            <option value="3">Nhóm 3</option>
-                            <option value="4">Nhóm 4</option>
-                            <option value="5">Nhóm 5</option>
-                        </select>
-                    </div>
-                    <a class="btn btn-info" id="button_submit" style="margin-top: 25px"><span
-                    class="glyphicon glyphicon-search"></span> Xem thuật toán</a>
+                <div class="form-group col-md-2">
+                    <label for="indicator"><span class="glyphicon glyphicon-edit"></span> Chọn thuật toán :</label>
+                    <select class="form-control" id="indicator_option">
+                        <option value="1">Nhóm 1</option>
+                        <option value="2">Nhóm 2</option>
+                        <option value="3">Nhóm 3</option>
+                        <option value="4">Nhóm 4</option>
+                        <option value="5">Nhóm 5</option>
+                    </select>
                 </div>
-                <!-- Make by Toan -->
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="row" style="">
-                        <div class="col-md-1">
-                            Chú giải
-                        </div>
-                        <div class="btn btn-default">
-                            Chưa có dữ liệu
-                        </div>
-                        <div class="btn btn-danger">
-                            0-10 km/h
-                        </div>
-                        <div class="btn btn-warning">
-                            10-20 km/h
-                        </div>
-                        <div class="btn btn-success">
-                            20-30 km/h
-                        </div>
-                        <div class="btn btn-primary">
-                            >30 km/h
-                        </div>
+                
+                <div class="col-md-2">
+                    <a class="btn btn-info" id="button_submit" style="margin-top: 25px">
+                        <span class="glyphicon glyphicon-search"></span> Xem thuật toán
+                    </a>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="row" style="padding-bottom: 5px; padding-left: 20px">
+                        <strong>Chú giải</strong>
                     </div>
-                    <div class="row" style="">
+                    <div class="row">
                         <div class="col-md-3">
-                            Tốc độ trung bình của khu vực tại con trỏ:
+                            <button class="btn btn-primary"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;> 30km/h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
                         </div>
-                        <span class="col-md-1" id="details"></span>
-                        <div class="col-md-2">
-                            km/h
+                        <div class="col-md-3">
+                            <button class="btn btn-success"> 20 đến 30km/h </button>
                         </div>
-
-                    </div>
-
-                    <div class="row" id="map" style="min-height: 500px;">
-
+                        <div class="col-md-3">
+                            <button class="btn btn-warning"> 10 đến 20km/h </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-danger"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;< 10km/h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </button>
+                        </div>
                     </div>
                 </div>
-                <!-- /.col -->
-                <!-- fix for small devices only -->
-                <div class="clearfix visible-sm-block"></div>
+            </div>
+              
+            <div class="row" id="map">
+                <!--MAP-->
             </div>
         </section>
-        <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
 @endsection
 @section('script')
     <script async defer
@@ -225,16 +193,6 @@
             var west = {{$grid->west}};
             var la = (north + south) / 2;
             var lo = (west + east) / 2;
-            // Make by Toan
-
-            // Comment by Toan
-            // var width = 56;
-            // var height = 23;
-            // var north = 21.157200;
-            // var east = 105.919876;
-            // var south = 20.951180;
-            // var west = 105.456390;
-            // Comment by Toan
 
             // define map
             map = new google.maps.Map(document.getElementById('map'), {
@@ -266,10 +224,6 @@
                     {
                         
                         document.getElementById('details').innerHTML = this.avg_speed;
-
-                        // Comment by Toan
-                        // document.getElementById('modal_details').innerHTML = this.avg_speed;
-                        // Comment by Toan
                         document.getElementById('inputX').value = this.inputX;
                         document.getElementById('inputY').value = this.inputY;
                         document.getElementById('color').value = this.color;
@@ -279,8 +233,6 @@
                     {
                         $("#inputModal").modal();
                     });
-
-                    // Make by Toan
                     var userZoom = true;
                     google.maps.event.addListener(map, 'zoom_changed', function() {
                         if(userZoom){
@@ -291,8 +243,6 @@
                     google.maps.event.addListener(map, 'idle', function(){
                         if(!userZoom) userZoom = true;
                     })
-                    // Make by Toan
-
                 }
             }
             //reset all colors
@@ -327,26 +277,12 @@
             });
             // get color from server
             updateRectangle(map.zoom);
-            // update each 5 min
-
-            // Comment by Toan
-            // setInterval(function ()
-            // {
-            // // get color from server
-            //     updateRectangle(rectangle);
-            // }, 1000 * 60 * 5);
-            // Comment by Toan
-
         }
         // get data from XML page
         function updateRectangle(zoom)
         {
-
-            // Make by Toan
             var url = "/now";
             var indicator = "/" + $('#indicator_option').val();
-            // Make by Toan
-
             // Modified by Toan downloadUrl arguments
             downloadUrl("{{route('color')}}" + url + indicator + "/" + zoom, function (data)
             {
