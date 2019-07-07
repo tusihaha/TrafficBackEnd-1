@@ -11,27 +11,16 @@ use Illuminate\Support\Facades\Auth;
  * Class Business
  * @package App\Repository
  */
-// define("north", 21.157200);
-// define("east", 105.919876);
-// define("south", 20.951180);
-// define("west", 105.456390);
-// define("height", 23);
-// define("width", 56);
-
 class Business // extends Model
 {
     private $rectangles;
     private $markers;
-    private $history;
-    // Make by Toan
     private $cells;
     private $cellsdetail;
     private $future;
-    // Make by Toan
     
     public function findRectangleInclude($lat, $lng)
     {
-        // Make by Toan
         $grid = $this->getGrid();
         $north = $grid->north;
         $east = $grid->east;
@@ -53,35 +42,15 @@ class Business // extends Model
             return false;
         }
         return ['whereX' => $whereX, 'whereY' => $whereY];
-        // Make by Toan
-
-        // Comment by Toan
-        // $whereX = floor(($lat - south) / (north - south) * height);
-        // $whereY = floor(($lng - west) / (east - west) * width);
-        // if ($whereX == height) {
-        //     $whereX--;
-        // } elseif ($whereX > height || $whereX < 0) {
-        //     return false;
-        // }
-        // if ($whereY == width) {
-        //     $whereY--;
-        // } elseif ($whereY > width || $whereY < 0) {
-        //     return false;
-        // }
-        // return ['whereX' => $whereX, 'whereY' => $whereY];
-        // Comment by Toan
     }
     
     public function __construct()
     {
         $this->rectangles = new Rectangles();
         $this->markers = new Markers();
-        $this->history = new History();
-        // Make by Toan
         $this->cells = new Cells();
         $this->cellsdetail = new CellsDetail();
         $this->future = new Future();
-        // Make by Toan
     }
     
     /**
@@ -102,84 +71,14 @@ class Business // extends Model
             return '#FF0000';
         }
     }
-
-    // Comment by Toan
-    /**
-     * @param $position
-     * @param $avg_speed
-     * @param $marker_count
-     *
-     * input an user's data in 1 rectangle
-     * recalculate the rectangle's attribute
-     */
-    //public function addNewData($whereX, $whereY, $avg_speed, $marker_count)
-    //{
-    //    $rectangle = $this->rectangles->select('id', 'avg_speed', 'marker_count')->where([
-    //      ['height', '=', $whereX],
-    //      ['width', '=', $whereY],
-    //    ])->first();
-    //    $rectangle->avg_speed = ($rectangle->avg_speed * $rectangle->marker_count + $avg_speed * $marker_count) / ($rectangle->marker_count + $marker_count);
-    //    $rectangle->marker_count = $rectangle->marker_count + $marker_count;
-    //    $rectangle->color = $this->getColor($rectangle->avg_speed);
-    //    $rectangle->save();
-    //}
-    
-    /**
-     * @param $arr_id
-     * @param $color
-     *
-     * overwrite the rectangle's color
-     */
-    //public function overwriteRectangle($whereX, $whereY, $color)
-    //{
-    //    $rectangle = $this->rectangles->select('id', 'color', 'overwrite_user')->where([
-    //      ['height', '=', $whereX],
-    //      ['width', '=', $whereY],
-    //    ])->first();
-    //    $rectangle->color = $color;
-    //    $rectangle->overwrite_user = Auth::user()->id;
-    //    $rectangle->save();
-    //}
-    
-    //public function insertMarker($row)
-    //{
-    //    $position = $this->findRectangleInclude($row[ 0 ], $row[ 1 ]);
-    //    $this->addNewData($position[ 'whereX' ], $position[ 'whereY' ], $row[ 2 ], 1);
-    //}
-    
-    
-    //public function csvToArray($filename = '', $delimiter = ',')
-    //{
-    //    if (!file_exists($filename) || !is_readable($filename)) {
-    //        return false;
-    //    }
-        
-    //    $header = null;
-    //    $data = array();
-    //    if (($handle = fopen($filename, 'r')) !== false) {
-    //        while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
-    //            $data[] = array_combine(['lat', 'lng', 'speed', 'record_time'], $row);
-    //        }
-    //        fclose($handle);
-    //    }
-    //    dd($data);
-    //    return $data;
-    //}
-    // Comment by Toan
  
     public function fetchRectangle($zoom = 12, $indicator = 0)
     {
-        // Make by Toan
         $now = Carbon::now('Asia/Ho_Chi_Minh')->subMinutes(30);
         return $this->cellsdetail->select('id', 'x_axis', 'y_axis', 'color', 'avg_speed', 'marker_count')
             ->where('id_cell', $zoom - 10)
             ->where('algorithm', $indicator)
             ->where('end_time', '>=', $now)->get();
-        // Make by Toan
-
-        // Comment by Toan
-        // return $this->rectangles->select('id', 'height', 'width', 'color', 'avg_speed', 'marker_count')->get();
-        // Comment by Toan
     }
     
     /**
@@ -195,7 +94,6 @@ class Business // extends Model
         $err = null;
         $name = $img->getClientOriginalName();
         $ext = $img->getClientOriginalExtension();
-        //kiem tra file trung ten
         while (file_exists($path . '/' . $name)) {
             $name = str_random(5) . "_" . $name;
         }
@@ -277,45 +175,12 @@ class Business // extends Model
     
     public function readHistory($start_time, $indicator = 0, $zoom = 12)
     {
-        // Make by Toan
         $cellsdetail = $this->cellsdetail->select('x_axis', 'y_axis', 'color')
                     ->where('id_cell', $zoom - 10)
                     ->where('algorithm', $indicator)
                     ->where('start_time', '<=', $start_time)
                     ->where('end_time', '>=', $start_time)->get();
         return $cellsdetail;
-        // Make by Toan
-
-        // Comment by Toan
-        // $history = $this->history->where([
-        //   ['start_time', '<=', $start_time],
-        //   ['end_time', '>', $start_time]
-        // ])->first();
-        // if ($history) {
-        //     $colors = $history->colors;
-        // } else {
-        //     // default value in case not found any record
-        //     $colors = "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-        //         . "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
-        // }
-
-        // $rectangles = $this->rectangles->select('height', 'width', 'color')->get();
-        // for ($i = 0; $i < height * width; $i++) {
-        //     $rectangles[ $i ]->color = $this->getColorFromLevel($colors[ $i ]);
-        // }
-        // return $rectangles;
-        // Comment by Toan
     }
     
     private function isHoliday($date)
@@ -340,7 +205,6 @@ class Business // extends Model
     
     public function calculateFuture($start_time = 'future_now', $indicator = 0, $zoom = 12)
     {
-        // Make by Toan
         if($start_time == "future_now") $future = $this->fetchRectangle($zoom, $indicator);
         else if($start_time == "future_thirty_minute"){
             $future = $this->future->select('x_axis', 'y_axis', 'color')
@@ -349,40 +213,7 @@ class Business // extends Model
                 ->where('algorithm', $indicator)->get();
         }
         return $future;
-        // Make by Toan
     }
-
-    /**
-     * @return static
-     *
-     */
-    public function toHistory()
-    {
-        $now = Carbon::now()->subMinutes(30);
-        $rectangles = Rectangles::select('color')->get();
-        $result = '';
-        foreach ($rectangles as $rectangle) {
-            $result .= $this->getLevelFromColor($rectangle->color);
-        }
-        $id = History::select('id')->where('end_time', '>', Carbon::now()->toDateTimeString())->first();
-        if (!isset($id)) {
-            History::insert(
-                [
-                    'start_time' => $now->toDateTimeString(),
-                    'end_time' => $now->addMinutes(30)->toDateTimeString(),
-                    'colors' => $result
-                ]
-            );
-            Rectangles::where('id', '>', 0)->update([
-                'avg_speed' => 0,
-                'marker_count' => 0,
-                'color' => '#808080',
-                'overwrite_user' => null
-            ]);
-        }
-        return $now;
-    }
-
 
     // Function make by Toan
     public function getGrid($zoom = 12){

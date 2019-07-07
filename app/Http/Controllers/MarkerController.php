@@ -115,51 +115,42 @@ class MarkerController extends Controller
             'marker_count' => 0,
             'color' => '#808080',
         ]);
-        // Make by Toan
-        // $this->business->resetColors();
         return response()->view('admin.pages.current');
     }
 
     public function overwrite(Request $request)
     {
-        // Make by Toan
         CellsDetail::where('id', '>', 0)->where('end_time', '>=', Carbon::now('Asia/Ho_Chi_Minh')->subMinute(30))
                     ->where('indicator', $request->indicator)
                     ->where('x_axis', '=', $request->whereX)
                     ->where('y_axis', '=',$request->whereY)->update([
             'color' => $request->color,
         ]);
-        // Make by Toan
-        // $this->business->overwriteRectangle($request->whereX, $request->whereY, $request->color);
     }
 
     public function showHistory($start_time = '')
     {
-        // Make by Toan
         $grid = $this->business->getGrid();
-        return view('admin.pages.history', compact('start_time','grid'));
-        // Make by Toan
-
-        // return view('admin.pages.history', compact('start_time');
+        //Bổ xung
+        $history = 'active';
+        return view('admin.pages.history', compact('start_time', 'grid', 'history'));
     }
 
     public function showCurrent()
     {
-        // Make by Toan
+        
         $grid = $this->business->getGrid();
-        return view('admin.pages.current',compact('grid'));
-        // Make by Toan
-
-        // return view('admin.pages.current');
+        // Bổ xung
+        $current = 'active';
+        return view('admin.pages.current',compact('grid', 'current'));
     }
 
     public function showFuture()
     {
-        // Make by Toan
         $grid = $this->business->getGrid();
-        return view('admin.pages.future', compact('grid'));
-        // Make by Toan
-        // return view('admin.pages.future');
+        // Bổ xung
+        $future = 'active';
+        return view('admin.pages.future', compact('grid', 'future'));
     }
 
     public function saveToHistory()

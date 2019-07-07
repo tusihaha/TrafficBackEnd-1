@@ -33,12 +33,13 @@ class UsersController extends Controller
         if (!Auth::user()) return view('admin.pages.admin-login');
         $currentUser = Auth::user();
         $query = $request->input('search');
+        $sidebarUser = 'active';
         if ($query == null) {
             $users = User::paginate(5);
-            return view('admin.pages.users.list', compact('users', 'currentUser'));
+            return view('admin.pages.users.list', compact('users', 'currentUser', 'sidebarUser'));
         } else {
             $users = User::where('name', 'like', "%$query%")->orWhere('email', 'like', "%$query%")->paginate(5);
-            return view('admin.pages.users.list', compact('users', 'query', 'currentUser'));
+            return view('admin.pages.users.list', compact('users', 'query', 'currentUser', 'sidebarUser'));
         }
     }
 

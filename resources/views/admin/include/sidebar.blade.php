@@ -32,7 +32,7 @@
             <li class="header">MAIN NAVIGATION</li>
 
             <!-- Trang chủ admin -->
-            <li class="active treeview">
+            <li class="treeview">
 
                 <a href="{{route('homepage')}}">
 
@@ -42,8 +42,8 @@
 
             <!-- ./ trang chủ admin -->
 
-            <!-- Xem Dữ liệu hiện tại -->
-            <li class="treeview">
+            <!-- Xem Dữ liệu hiện tại cần dùng cách khác để hiển thị trạng thái 'active' của sidebar-->
+            <li class="@if (isset($current)) {{$current}} @endif treeview">
                 <a href="{{route('current')}}">
                     <i class="fa fa-files-o"></i>
                     <span>Xem tình hình hiện tại</span>
@@ -51,8 +51,8 @@
             </li>
             <!-- ./ Xem Dữ liệu hiện tại -->
 
-            <!-- Xem dữ liệu cũ -->
-            <li class="treeview">
+            <!-- Xem dữ liệu cũ cần dùng cách khác để hiển thị trạng thái 'active' của sidebar-->
+            <li class="@if (isset($history)) {{$history}} @endif treeview">
                 <a href="{{route('history')}}">
                     <i class="fa fa-pie-chart"></i>
                     <span>Xem dữ liệu cũ</span>
@@ -60,8 +60,8 @@
             </li>
             <!-- ./xem dữ liệu cũ -->
 
-            <!-- Dự đoán -->
-            <li class="treeview">
+            <!-- Dự đoán cần dùng cách khác để hiển thị trạng thái 'active' của sidebar-->
+            <li class="@if (isset($future)) {{$future}} @endif treeview">
                 <a href="{{route('future')}}">
                     <i class="fa fa-paper-plane"></i>
                     <span>Dự đoán</span>
@@ -69,8 +69,8 @@
             </li>
             <!-- ./dự đoán -->
 
-            <!-- quản lý user -->
-            <li class="treeview">
+            <!-- quản lý user cần dùng cách khác để hiển thị trạng thái 'active' của sidebar-->
+            <li class="@if (isset($sidebarUser)) {{$sidebarUser}} @endif treeview">
                 <a href="{{url('users')}}">
                     <i class="fa fa-users"></i> <span>Quản lý người dùng</span>
                 </a>

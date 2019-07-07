@@ -11,3 +11,13 @@ tr>th{
 #add_new .col-md-6{
     margin-bottom: 10px;
 }
+@media screen and (max-width: 1400px) {
+    #map{
+        height: 500px;
+    }
+}
+@media screen and (min-width: 1920px) {
+    #map{
+        min-height: 800px;
+    }
+}

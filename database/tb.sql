@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cells`
+-- Table structure for table `rectangles`
 --
 
-CREATE TABLE `cells` (
+CREATE TABLE `rectangles` (
   `id` int(11) UNSIGNED NOT NULL,
   `height` int(11) NOT NULL,
   `width` int(11) NOT NULL,
@@ -39,10 +39,10 @@ CREATE TABLE `cells` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `cells`
+-- Dumping data for table `rectangles`
 --
 
-INSERT INTO `cells` (`id`, `height`, `width`, `east`, `west`, `south`, `north`) VALUES
+INSERT INTO `rectangles` (`id`, `height`, `width`, `east`, `west`, `south`, `north`) VALUES
 (1, 6, 13, 105.92, 105.46, 20.95, 21.16),
 (2, 12, 27, 105.92, 105.46, 20.95, 21.16),
 (3, 24, 54, 105.92, 105.46, 20.95, 21.16),
@@ -236,9 +236,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `address`, `veh
 --
 
 --
--- Indexes for table `cells`
+-- Indexes for table `rectangles`
 --
-ALTER TABLE `cells`
+ALTER TABLE `rectangles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -292,9 +292,9 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `cells`
+-- AUTO_INCREMENT for table `rectangles`
 --
-ALTER TABLE `cells`
+ALTER TABLE `rectangles`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
@@ -329,13 +329,13 @@ ALTER TABLE `users`
 -- Constraints for table `cells_detail`
 --
 ALTER TABLE `cells_detail`
-  ADD CONSTRAINT `cells_detail_id_cell_foreign` FOREIGN KEY (`id_cell`) REFERENCES `cells` (`id`);
+  ADD CONSTRAINT `cells_detail_id_cell_foreign` FOREIGN KEY (`id_cell`) REFERENCES `rectangles` (`id`);
 
 --
 -- Constraints for table `future`
 --
 ALTER TABLE `future`
-  ADD CONSTRAINT `future_id_cell_foreign` FOREIGN KEY (`id_cell`) REFERENCES `cells` (`id`);
+  ADD CONSTRAINT `future_id_cell_foreign` FOREIGN KEY (`id_cell`) REFERENCES `rectangles` (`id`);
 
 --
 -- Constraints for table `markers`
