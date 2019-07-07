@@ -1,2 +1,3 @@
-"# Beta-Release-TrafficBackend" 
-"# Beta-Release-TrafficBackend" 
+composer install
+
+php artisan key:generate
