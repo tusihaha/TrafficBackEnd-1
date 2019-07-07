@@ -165,7 +165,7 @@ CREATE TABLE `report` (
   `user_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `report`
@@ -234,6 +234,19 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `address`, `veh
 --
 -- Indexes for dumped tables
 --
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `algorithm`
+--
+
+CREATE TABLE `algorithm` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name_of_algorithm` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_team` int(10) UNSIGNED NOT NULL
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for table `rectangles`
@@ -292,6 +305,13 @@ ALTER TABLE `users`
 --
 
 --
+-- Indexes for table `algorithm`
+--
+ALTER TABLE `algorithm`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `algorithm_id_team_foreign` (`id_team`);
+
+--
 -- AUTO_INCREMENT for table `rectangles`
 --
 ALTER TABLE `rectangles`
@@ -324,6 +344,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `algorithm`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Constraints for table `cells_detail`
